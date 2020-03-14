@@ -1,0 +1,338 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample of Golang API endpoints assignment",
+        "title": "Golang API endpoints assignment",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Hao Nguyen",
+            "url": "http://musicmaven.s3corp.vn",
+            "email": "hao.nguyen@s3corp.com.vn"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/addFriend": {
+            "post": {
+                "description": "return a result of creating a new friend by 2 user emails",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Friend"
+                ],
+                "summary": "add a new friend",
+                "parameters": [
+                    {
+                        "description": "friend",
+                        "name": "friend",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.friendRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.response"
+                        }
+                    }
+                }
+            }
+        },
+        "/blockSubscribe": {
+            "post": {
+                "description": "return a result of blocking subscribe user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subscribe"
+                ],
+                "summary": "block Subscribe user",
+                "parameters": [
+                    {
+                        "description": "Subscribe",
+                        "name": "subscribe",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.subscribeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.response"
+                        }
+                    }
+                }
+            }
+        },
+        "/commonFriend": {
+            "post": {
+                "description": "return a list of friend by list of user emails",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Friend"
+                ],
+                "summary": "show common Friends",
+                "parameters": [
+                    {
+                        "description": "User email list",
+                        "name": "emails",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.friendRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.friendConnection"
+                        }
+                    }
+                }
+            }
+        },
+        "/listFriend": {
+            "get": {
+                "description": "return a list of friend by one user email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Friend"
+                ],
+                "summary": "show list of Friend",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email address",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.friendConnection"
+                        }
+                    }
+                }
+            }
+        },
+        "/listRecipients": {
+            "post": {
+                "description": "get list by email user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subscribe"
+                ],
+                "summary": "Show List of Recipients",
+                "parameters": [
+                    {
+                        "description": "Recipient",
+                        "name": "recipients",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.recipientRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.recipientResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/showAllUsers": {
+            "get": {
+                "description": "return a list of entire users",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "show all infos of all users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.user"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/subscribe": {
+            "post": {
+                "description": "return a result of subscribing user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subscribe"
+                ],
+                "summary": "subscribe user",
+                "parameters": [
+                    {
+                        "description": "Subscribe",
+                        "name": "subscribe",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.subscribeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.friendConnection": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "friends": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "main.friendRequest": {
+            "type": "object",
+            "properties": {
+                "friends": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "main.recipientRequest": {
+            "type": "object",
+            "properties": {
+                "sender": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.recipientResponse": {
+            "type": "object",
+            "properties": {
+                "recipients": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "main.response": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "main.subscribeRequest": {
+            "type": "object",
+            "properties": {
+                "requestor": {
+                    "type": "string"
+                },
+                "target": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.user": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
