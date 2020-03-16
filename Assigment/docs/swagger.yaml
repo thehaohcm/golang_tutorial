@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   main.friendConnection:
     properties:
@@ -55,19 +54,64 @@ definitions:
       lastName:
         type: string
     type: object
-host: localhost:8080
+  models.FriendConnection:
+    properties:
+      count:
+        type: integer
+      friends:
+        items:
+          type: string
+        type: array
+      success:
+        type: boolean
+    type: object
+  models.FriendRequest:
+    properties:
+      friends:
+        items:
+          type: string
+        type: array
+    type: object
+  models.RecipientRequest:
+    properties:
+      sender:
+        type: string
+      text:
+        type: string
+    type: object
+  models.RecipientResponse:
+    properties:
+      recipients:
+        items:
+          type: string
+        type: array
+      success:
+        type: boolean
+    type: object
+  models.Response:
+    properties:
+      success:
+        type: boolean
+    type: object
+  models.SubscribeRequest:
+    properties:
+      requestor:
+        type: string
+      target:
+        type: string
+    type: object
+  models.User:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+    type: object
 info:
-  contact:
-    email: hao.nguyen@s3corp.com.vn
-    name: Hao Nguyen
-    url: http://musicmaven.s3corp.vn
-  description: This is a sample of Golang API endpoints assignment
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  termsOfService: http://swagger.io/terms/
-  title: Golang API endpoints assignment
-  version: "1.0"
+  contact: {}
+  license: {}
 paths:
   /addFriend:
     post:
