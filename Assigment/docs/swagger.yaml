@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   main.friendConnection:
     properties:
@@ -109,9 +110,19 @@ definitions:
       lastName:
         type: string
     type: object
+host: localhost:8080
 info:
-  contact: {}
-  license: {}
+  contact:
+    email: hao.nguyen@s3corp.com.vn
+    name: Hao Nguyen
+    url: http://musicmaven.s3corp.vn
+  description: This is a sample of Golang API endpoints assignment
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Golang API endpoints assignment
+  version: "1.0"
 paths:
   /addFriend:
     post:
@@ -124,14 +135,14 @@ paths:
         name: friend
         required: true
         schema:
-          $ref: '#/definitions/main.friendRequest'
+          $ref: '#/definitions/models.FriendRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.response'
+            $ref: '#/definitions/models.Response'
       summary: add a new friend
       tags:
       - Friend
@@ -146,14 +157,14 @@ paths:
         name: subscribe
         required: true
         schema:
-          $ref: '#/definitions/main.subscribeRequest'
+          $ref: '#/definitions/models.SubscribeRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.response'
+            $ref: '#/definitions/models.Response'
       summary: block Subscribe user
       tags:
       - Subscribe
@@ -168,14 +179,14 @@ paths:
         name: emails
         required: true
         schema:
-          $ref: '#/definitions/main.friendRequest'
+          $ref: '#/definitions/models.FriendRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.friendConnection'
+            $ref: '#/definitions/models.FriendConnection'
       summary: show common Friends
       tags:
       - Friend
@@ -186,7 +197,7 @@ paths:
       description: return a list of friend by one user email
       parameters:
       - description: email address
-        in: query
+        in: path
         name: email
         required: true
         type: string
@@ -196,7 +207,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.friendConnection'
+            $ref: '#/definitions/models.FriendConnection'
       summary: show list of Friend
       tags:
       - Friend
@@ -211,14 +222,14 @@ paths:
         name: recipients
         required: true
         schema:
-          $ref: '#/definitions/main.recipientRequest'
+          $ref: '#/definitions/models.RecipientRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.recipientResponse'
+            $ref: '#/definitions/models.RecipientResponse'
       summary: Show List of Recipients
       tags:
       - Subscribe
@@ -234,7 +245,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/main.user'
+              $ref: '#/definitions/models.User'
             type: array
       summary: show all infos of all users
       tags:
@@ -250,14 +261,14 @@ paths:
         name: subscribe
         required: true
         schema:
-          $ref: '#/definitions/main.subscribeRequest'
+          $ref: '#/definitions/models.SubscribeRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.response'
+            $ref: '#/definitions/models.Response'
       summary: subscribe user
       tags:
       - Subscribe
