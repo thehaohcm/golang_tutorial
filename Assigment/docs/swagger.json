@@ -1,9 +1,22 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {},
-        "license": {}
+        "description": "This is a sample of Golang API endpoints assignment",
+        "title": "Golang API endpoints assignment",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Hao Nguyen",
+            "url": "http://musicmaven.s3corp.vn",
+            "email": "hao.nguyen@s3corp.com.vn"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
     },
+    "host": "localhost:8080",
+    "basePath": "/",
     "paths": {
         "/addFriend": {
             "post": {
@@ -25,7 +38,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.friendRequest"
+                            "$ref": "#/definitions/models.FriendRequest"
                         }
                     }
                 ],
@@ -33,7 +46,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -59,7 +72,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.subscribeRequest"
+                            "$ref": "#/definitions/models.SubscribeRequest"
                         }
                     }
                 ],
@@ -67,7 +80,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -93,7 +106,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.friendRequest"
+                            "$ref": "#/definitions/models.FriendRequest"
                         }
                     }
                 ],
@@ -101,7 +114,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.friendConnection"
+                            "$ref": "#/definitions/models.FriendConnection"
                         }
                     }
                 }
@@ -125,7 +138,7 @@
                         "type": "string",
                         "description": "email address",
                         "name": "email",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -133,7 +146,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.friendConnection"
+                            "$ref": "#/definitions/models.FriendConnection"
                         }
                     }
                 }
@@ -159,7 +172,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.recipientRequest"
+                            "$ref": "#/definitions/models.RecipientRequest"
                         }
                     }
                 ],
@@ -167,7 +180,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.recipientResponse"
+                            "$ref": "#/definitions/models.RecipientResponse"
                         }
                     }
                 }
@@ -192,7 +205,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.user"
+                                "$ref": "#/definitions/models.User"
                             }
                         }
                     }
@@ -219,7 +232,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.subscribeRequest"
+                            "$ref": "#/definitions/models.SubscribeRequest"
                         }
                     }
                 ],
@@ -227,7 +240,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
