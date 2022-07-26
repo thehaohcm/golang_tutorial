@@ -1,0 +1,160 @@
+definitions:
+  models.BlockSubscribeRequest:
+    properties:
+      requestor:
+        type: string
+      target:
+        type: string
+    type: object
+  models.CommonFriendListRequest:
+    properties:
+      friends:
+        items:
+          type: string
+        type: array
+    type: object
+  models.FriendConnectionRequest:
+    properties:
+      friends:
+        items:
+          type: string
+        type: array
+    type: object
+  models.FriendListRequest:
+    properties:
+      email:
+        type: string
+    type: object
+  models.GetSubscribingEmailListRequest:
+    properties:
+      sender:
+        type: string
+      text:
+        type: string
+    type: object
+  models.SubscribeRequest:
+    properties:
+      requestor:
+        type: string
+      target:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /friends/blockSubscribeUpdateByEmail:
+    post:
+      consumes:
+      - application/json
+      description: 'Requirement 5: As a user, I need an API to block updates from
+        an email address.'
+      parameters:
+      - description: Block updates from an email address
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/models.BlockSubscribeRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: ping example
+      tags:
+      - Friend API
+  /friends/createConnection:
+    post:
+      consumes:
+      - application/json
+      description: 'Requirement 1: As a user, I need an API to create a friend connection
+        between two email addresses.'
+      parameters:
+      - description: Create a friend connection between 2 user email
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/models.FriendConnectionRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: ping example
+      tags:
+      - Friend API
+  /friends/showCommonFriendList:
+    post:
+      consumes:
+      - application/json
+      description: 'Requirement 3: As a user, I need an API to retrieve the common
+        friends list between two email addresses.'
+      parameters:
+      - description: Retrieve the common friends list between two email addresses
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommonFriendListRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: ping example
+      tags:
+      - Friend API
+  /friends/showFriendsByEmail:
+    post:
+      consumes:
+      - application/json
+      description: 'Requirement 2: As a user, I need an API to retrieve the friends
+        list for an email address.'
+      parameters:
+      - description: Get a list of friend by user email
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/models.FriendListRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: ping example
+      tags:
+      - Friend API
+  /friends/showSubscribingEmailListByEmail:
+    post:
+      consumes:
+      - application/json
+      description: 'Requirement 6: As a user, I need an API to retrieve all email
+        addresses that can receive updates from an email address.'
+      parameters:
+      - description: retrieve all email addresses that can receive update from an
+          email address
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetSubscribingEmailListRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: ping example
+      tags:
+      - Friend API
+  /friends/subscribeUpdateByEmail:
+    post:
+      consumes:
+      - application/json
+      description: 'Requirement 4: As a user, I need an API to subscribe to updates
+        from an email address.'
+      parameters:
+      - description: Subscribe to updates from an email address
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/models.SubscribeRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: ping example
+      tags:
+      - Friend API
+swagger: "2.0"
