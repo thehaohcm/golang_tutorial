@@ -43,6 +43,7 @@ func SetupRouter() *gin.Engine {
 			v1.POST("/friends/showSubscribingEmailListByEmail", friendConnectionController.GetSubscribingEmailListByEmail)
 		}
 	}
+
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return router
 }

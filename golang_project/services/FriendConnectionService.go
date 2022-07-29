@@ -34,7 +34,7 @@ func (svc *service) GetFriendConnection(request models.FriendListRequest) models
 	var response models.FriendListResponse
 	response.Friends = svc.repository.FindFriendsByEmail(request.Email)
 
-	if response.Friends != nil {
+	if response.Friends != nil && len(response.Friends) > 0 {
 		response.Success = true
 		response.Count = len(response.Friends)
 	}
@@ -43,6 +43,9 @@ func (svc *service) GetFriendConnection(request models.FriendListRequest) models
 
 func (svc *service) ShowCommonFriendList(request models.CommonFriendListRequest) models.CommonFriendListResponse {
 	var response models.CommonFriendListResponse
+	if len(request.Friends) <= 0 {
+		return response
+	}
 	response.Friends = svc.repository.FindCommonFriendsByEmails(request.Friends)
 	if response.Friends != nil {
 		response.Success = true
@@ -65,7 +68,9 @@ func (svc *service) BlockSuscribeByEmail(request models.BlockSubscribeRequest) m
 
 func (svc *service) GetSubscribingEmailListByEmail(request models.GetSubscribingEmailListRequest) models.GetSubscribingEmailListResponse {
 	var response models.GetSubscribingEmailListResponse
-
+	if request == (models.GetSubscribingEmailListRequest{}) {
+		return response
+	}
 	response = svc.repository.GetSubscribingEmailListByEmail(request)
 	return response
 }

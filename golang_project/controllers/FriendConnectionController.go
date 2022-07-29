@@ -64,7 +64,13 @@ func (ctl *controller) CreateFriendConnection(c *gin.Context) {
 func (ctl *controller) GetFriendListByEmail(c *gin.Context) {
 	var request models.FriendListRequest
 	if err := c.BindJSON(&request); err != nil {
-		panic(err)
+		c.Status(http.StatusBadRequest)
+		return
+	}
+
+	if request == (models.FriendListRequest{}) {
+		c.Status(http.StatusBadRequest)
+		return
 	}
 
 	response := ctl.service.GetFriendConnection(request)
@@ -83,6 +89,12 @@ func (ctl *controller) GetFriendListByEmail(c *gin.Context) {
 func (ctl *controller) ShowCommonFriendList(c *gin.Context) {
 	var request models.CommonFriendListRequest
 	if err := c.BindJSON(&request); err != nil {
+		c.Status(http.StatusBadRequest)
+		return
+	}
+
+	if request.Friends == nil || len(request.Friends) == 0 {
+		c.Status(http.StatusBadRequest)
 		return
 	}
 
@@ -140,9 +152,14 @@ func (ctl *controller) BlockSuscribeByEmail(c *gin.Context) {
 func (ctl *controller) GetSubscribingEmailListByEmail(c *gin.Context) {
 	var request models.GetSubscribingEmailListRequest
 	if err := c.BindJSON(&request); err != nil {
+		c.Status(http.StatusBadRequest)
 		return
 	}
 
+	if request == (models.GetSubscribingEmailListRequest{}) {
+		c.Status(http.StatusBadRequest)
+		return
+	}
 	response := ctl.service.GetSubscribingEmailListByEmail(request)
 	c.IndentedJSON(http.StatusOK, response)
 }

@@ -29,7 +29,7 @@ func GetInstance() *sql.DB {
 }
 
 func connectDatabase() *sql.DB {
-	db, err := sql.Open("sqlite3", "golang_project.db")
+	db, err := sql.Open("sqlite3", "C:/Users/hao.nguyen/Desktop/golang_tutorial/golang_project/golang_project.db")
 	if err != nil {
 		panic(err)
 	}

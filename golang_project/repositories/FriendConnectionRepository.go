@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"golang_project/models"
 	"golang_project/utils"
+	"log"
 	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -34,14 +35,15 @@ func (repo *repository) CreateFriendConnection(emails []string) bool {
 	_, err := repo.db.Exec("INSERT INTO friends('user_email','friend_email') VALUES ('" + emails[0] + "','" + emails[1] + "')")
 
 	if err != nil {
-		return false
+		// return false
+		panic(err)
 	}
 	return true
 }
 
 //2.
 func (repo *repository) FindFriendsByEmail(email string) []string {
-	rows, err := repo.db.Query("SELECT friends FROM friends WHERE user_email=? AND BLOCKED=0", email)
+	rows, err := repo.db.Query("SELECT friend_email FROM friends WHERE user_email=? AND BLOCKED=0", email)
 	if err != nil {
 		panic(err)
 	}
@@ -60,12 +62,15 @@ func (repo *repository) FindFriendsByEmail(email string) []string {
 
 //3.
 func (repo *repository) FindCommonFriendsByEmails(emails []string) []string {
-	sqlStatement := "SELECT friends FROM friends WHERE"
+	sqlStatement := "SELECT friend_email FROM friends WHERE"
 	for _, email := range emails {
-		sqlStatement += " email=" + email + " AND"
+		sqlStatement += " user_email='" + email + "' OR"
 	}
-	sqlStatement = sqlStatement[:len(sqlStatement)-4]
-	sqlStatement += " WHERE BLOCKED=0 GROUP BY friend_email"
+	if len(emails) > 1 {
+		sqlStatement = sqlStatement[:len(sqlStatement)-3]
+	}
+	sqlStatement += " AND BLOCKED=0 GROUP BY friend_email HAVING COUNT(*) > 1"
+	log.Println("sqlSte: " + sqlStatement)
 	rows, err := repo.db.Query(sqlStatement)
 	if err != nil {
 		panic(err)
@@ -137,13 +142,15 @@ func (repo *repository) hasFriendConnection(requestor string, target string) boo
 //6.
 func (repo *repository) GetSubscribingEmailListByEmail(req models.GetSubscribingEmailListRequest) models.GetSubscribingEmailListResponse {
 
+	log.Println("akdfa: " + req.Sender)
+
 	var res models.GetSubscribingEmailListResponse
 	res.Success = false
 
 	//if has a friend connection
 	rows, err := repo.db.Query("SELECT friend_email FROM friends WHERE user_email=? AND blocked=0", req.Sender)
 	if err != nil {
-		return res
+		panic(err)
 	}
 
 	defer rows.Close()
@@ -152,7 +159,7 @@ func (repo *repository) GetSubscribingEmailListByEmail(req models.GetSubscribing
 	for rows.Next() {
 		var friend string
 		if err := rows.Scan(&friend); err != nil {
-			return res
+			panic(err)
 		}
 		recipients = append(recipients, friend)
 	}
@@ -161,7 +168,7 @@ func (repo *repository) GetSubscribingEmailListByEmail(req models.GetSubscribing
 	if len(recipients) > 0 {
 		rows, err := repo.db.Query("SELECT target FROM subscribers WHERE requestor=? AND blocked=1", req.Sender)
 		if err != nil {
-			return res
+			panic(err)
 		}
 
 		defer rows.Close()
@@ -170,7 +177,7 @@ func (repo *repository) GetSubscribingEmailListByEmail(req models.GetSubscribing
 		for rows.Next() {
 			var target string
 			if err := rows.Scan(&target); err != nil {
-				return res
+				panic(err)
 			}
 			blockedEmails = append(blockedEmails, target)
 		}
